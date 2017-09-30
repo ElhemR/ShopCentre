@@ -1,0 +1,50 @@
+{% extends 'boutique/base.html' %}
+{% block boutiques_active %}active{% endblock %}
+
+{% block body %}
+<div class="boutiques-container container-fluid">
+
+    <!-- Boutiques -->
+    <div class="row">
+        <div class="col-sm-12">
+       
+        </div>
+        {% if boutiques %}
+            {% for boutique in boutiques %}
+                <div class="col-sm-4 col-lg-2">
+                    <div class="thumbnail">
+                        <a href="{% url 'boutique:detail' boutique.id %}">
+        
+                        </a>
+                        <div class="caption">
+                            <h2>{{ boutique.shop_name }}</h2>
+                    
+
+                            <!-- View Details -->
+                            <a href="{% url 'boutique:detail' boutique.id %}" class="btn btn-primary btn-sm" role="button">Show products</a>
+
+               
+                    
+
+
+                        </div>
+                    </div>
+                </div>
+                {% cycle '' '' '' '' '' '<div class="clearfix visible-lg"></div>' %}
+            {% endfor %}
+        {% else %}
+            <div class="col-sm-12">
+                <br>
+                <a href="{% url 'boutique:create_boutique' %}">
+                    <button type="button" class="btn btn-success">
+                        <span class="glyphicon glyphicon-plus"></span>&nbsp; Add a shop
+                    </button>
+                </a>
+            </div>
+        {% endif %}
+    </div>
+
+
+
+</div>
+{% endblock %}

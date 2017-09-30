@@ -1,0 +1,78 @@
+{% extends 'boutique/base.html' %}
+{% block title %}{{ album }}{% endblock %}
+{% block albums_active %}active{% endblock %}
+
+{% block body %}
+<div class="container-fluid songs-container">
+
+    <div class="row">
+
+        <!-- Left Album Info -->
+        <div class="col-sm-4 col-md-3">
+            <div class="panel panel-default">
+                <div class="panel-body">
+                 
+                    <h1>{{ boutique.shop_name }}</h1>
+             
+                </div>
+            </div>
+        </div>
+
+        <!-- Right Song Info -->
+        <div class="col-sm-8 col-md-9">
+
+            <ul class="nav nav-pills" stiyle="margin-bottom: 10px;">
+                <li role="presentation" class="active"><a href="{% url 'boutique:detail' boutique.id %}">View All</a></li>
+                <li role="presentation"><a href="{% url 'boutique:create_product' boutique.id %}">Add a product</a></li>
+            </ul>
+
+            <div class="panel panel-default">
+                <div class="panel-body">
+
+                    <h3>All products</h3>
+
+                    {% if error_message %}
+                        <p><strong>{{ error_message }}</strong></p>
+                    {% endif %}
+
+                    <table class="table">
+                        <thead>
+                        <tr>
+                            <th>Nom</th>
+                            <th>Photo</th>
+                            <th>Prix</th>
+                            <th>Description</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% for product in boutique.product_set.all %}
+                            <tr>
+                                <td>{{ product.product_name }}</td>
+                                <td>
+                                {% if product.product_img %}
+                                       <img style="width:100px;height:100px;" src="{{ product.product_img.url }}" class="img-responsive">
+                                {% else %}
+                                       <h3>No image to display</h3>
+                                {% endif %}
+                                </td>
+                                <td>
+                                 {{ product.product_price }}
+                                </td>
+                                <td>
+                                        {{ product.product_desc }}
+                                </td>
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+{% endblock %}
